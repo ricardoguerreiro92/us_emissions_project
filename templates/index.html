@@ -76,24 +76,36 @@
                 - The highest population States in 2018 are California at 39M, Texas at 28M, & Florida at 28M, with New York close behind at 19M.<br>
                 </p>
             <h3>Machine Learning<br></h3>
-                <h5>To test our hypothesis, we utilized three different Machine Learning models:<br></h6>
-                <h4>Linear Regression<br></h4>
+                <h5>To test our hypothesis, we utilized a Random Forest Regressor Model:<br></h6>
+                <h4>Data Preprocessing<br></h4>
                 <p class="list">
-                    - Using Linear Regression, we attempted to find a correlation between GDP, Population, and GHG emissions.<br>
-                    - Due to the ever-increasing nature of these features, we were unable to find any useful correlation that was not already obvious.<br>
-                    - From here, we moved on to unsupervised models.<br>
+                    - Data was merged into a table including emissions by State, Sector, and Year, with included GDP and Population values for each State per Year<br>
+                    - State and Sector were encoded to use as Features in the model<br>
+                    - Data was then given an outcome based on these factors:<br>
+                       - For the given State, Sector, and Year, did Greenhouse Gas Emissions rise compared to the year prior?<br> 
+                       - If yes, we labeled the outcome as "1", otherwise, "0"<br>
                 </p>
-                <h4>Random Forest Classifier<br></h4>
+                <h4>Feature Engineering and Feature Selection<br></h4>
                 <p class="list">
-                    - The model was trained on data aggregated as averages, in order to scale each feature and account for differences in land size.<br>
-                    - The training score was 0.95, a promising result, but the inital test was only 0.69. Still decent, but not reliable.<br>
-                    - When running the trained model on our existing data, we found it was unusable on real data, with a negative testing score.<br>
+                    - State and Sector were encoded to use in the model<br>
+                    - State and the sectors within have variation that effect emission levels, and thus should be included in the decision-making process<br>
+                  - Features chosen<br>
+                    - StateEncoded<br>
+                    - SectorEncoded<br>
+                    - GDP<br>
+                    - Population<br>
+                    - All GHG Emissions<br>
+                  - Features were chosen based on their overall weight on potential GHG emissions, as well as to scale the data depending on the state and sector the emissions were from.<br>
+                  - Data was given a standard 80-20 split for Training and Testing<br>
                 </p>
-                <h4>K-Means Clustering<br></h4>
+                <h4>Model<br></h4>
                 <p class="list">
-                    - We used the Elbow Method to determine how many clusters to target using the model, resulting in 4 ideally.<br>
-                    - While this model was not wholly successful, it did help us come to the conclusion that our hypothesis was null.<br>
-                    - Clustering provided no correlation between Population and GHG or GDP and GHG.<br>
+                    - As we labeled the data based on the outcomes we intend to measure, we used a Random Forest Regressor model, as that proved the most effective at classifying our data.<br>
+                    - The model was trained using the pre-processed, pre-labeled data, which included over 13000 rows and 5 columns per row.<br>
+                    - Data was not scaled, as no values were extremely high and their existing weight gave a better score<br>
+                    - Our Training Score was 87.2%, but our testing score was low, at only 7.5%<br>
+                    - Nevertheless, when plugging in specific states and sectors into the model after training, we achieved a large variation in testing scores, ranging from 4% to 91.5% (excluding values of 1.0 due to zero reported emissions)<br>
+                    - As a team, we have previously tried linear regression, K-Means, and a Neural Network model with little success, and so our RFR model seems the most likely to predict a rise or fall in GHG Emissions year-to-year.<br>
                 </p>
                 <h3>Conclusion<br></h3>
                 <p class="list">

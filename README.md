@@ -89,6 +89,6 @@ We built a Flask app using the following tools:
 
 This will be deployed when complete using Heroku.
 
-## Mid-Project Progress
+## Presentation
 Google Slides below:
-https://docs.google.com/presentation/d/1-nu6R02VoQOIAPqIm7txoEy6xk4nNJbGHiTljbAuARw/edit#slide=id.p
+https://docs.google.com/presentation/d/12N8r5K6RWYMjfLiBHMVHlVGMJvS2c6n8GvQw51Y7I78/edit?usp=sharing
