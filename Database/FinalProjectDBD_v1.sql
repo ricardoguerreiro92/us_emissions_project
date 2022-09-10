@@ -58,3 +58,33 @@ REFERENCES "GHGEmissionsByState" ("Sector");
 ALTER TABLE "GHGEmissionsByStateBySector" ADD CONSTRAINT "fk_GHGEmissionsByStateBySector_Year" FOREIGN KEY("Year")
 REFERENCES "GDPByState" ("Year");
 
+
+-- rename column All GHG to allghg on different tables
+
+ALTER TABLE sector_emissions 
+RENAME COLUMN "All GHG" TO "allghg";
+
+ALTER TABLE state_emissions 
+RENAME COLUMN "All GHG" TO "allghg";
+
+
+-- Create per_capita table
+SELECT se."State", sp."Year", sp."Population",
+	sg."GDP"/sp."Population" as gdp_per_capita, 
+	se.allghg/sp."Population" as ghg_per_capita
+INTO per_capita
+FROM state_gdp sg
+JOIN state_pop sp
+	ON sg."StateFull" = sp."StateFull" AND sg."Year" = sp."Year"
+JOIN state_emissions se
+	ON sg."State" = se."State" AND sg."Year"=se."Year"
+ORDER BY "State", "Year" ASC;
+
+--Update from metric tons to pounds on ghg per_capita table
+UPDATE per_capita SET ghg_per_capita=ghg_per_capita*2204.62;
+
+
+
+--round gdp_per_capita and ghg_per_capita
+UPDATE per_capita SET ghg_per_capita= ROUND(ghg_per_capita::numeric, 4);
+UPDATE per_capita SET gdp_per_capita=ROUND(gdp_per_capita::numeric, 2);

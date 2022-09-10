@@ -6,7 +6,7 @@ app = Flask(__name__)
 
 def get_db_connection():
     conn = psycopg2.connect(host=DB_HOST,
-                            database='us_emissions_db',
+                            database='us_emissions',
                             user=DB_USER,
                             password=DB_PASS,
                             port=DB_PORT)
